@@ -7,6 +7,27 @@ stages:
   - stage_push_docker
   - stage_push_documentation
   - stage_deploy
+  - sast  # Static Analysis Securty tool 
+
+# Sast
+flake8:
+  image: python:2.7-jessie
+  stage: lint
+  before_script:
+    - pip install flake8
+  script:
+    - flake8 tests src *.py
+  allow_failure: true
+
+
+bandit:
+  stage: sast
+  image: python:latest
+  script:
+  - pip install bandit
+  - bandit -r .
+  allow_failure: true
+
 
 # Docker
 
