@@ -16,3 +16,5 @@ jobs:
       run: make docker-build
     - name: Run tests
       run: make docker-runtest-all
+    - name: Run bandit
+      uses: tj-actions/bandit@v5
