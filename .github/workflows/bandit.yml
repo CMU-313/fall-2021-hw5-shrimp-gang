@@ -1,23 +1,19 @@
-name: Bandit Security Check
-on:
-  push:
-    branches: 
-      - master
-  pull_request:
-    branches: 
-      - master
-  workflow_dispatch:
+name: Security check - Bandit
+
+on: push
+
 jobs:
-  CI:
+  build:
     runs-on: ubuntu-latest
     strategy:
       matrix:
         os: [ ubuntu-latest, macos-latest ]
         python-version: [ '2.7.17', '3.6.10' ]
     name: Python ${{ matrix.python-version }} ${{ matrix.os }} 
-    
+
     steps:
     - uses: actions/checkout@v2
+
     - name: Security check - Bandit
       uses: ./
       with:
@@ -31,4 +27,3 @@ jobs:
       with:
         name: Security report
         path: output/security_report.txt
-          
