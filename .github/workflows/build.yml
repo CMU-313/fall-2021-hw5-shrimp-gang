@@ -1,31 +1,40 @@
+#name: Build
+#on:
+#  push:
+#    branches:
+#      - master
+#  pull_request:
+#    branches:
+#      - master
+#  workflow_dispatch:
+#jobs:
+#  build:
+#    runs-on: ubuntu-latest
+#    steps:
+#    - uses: actions/checkout@v2
+#    - name: Build docker image
+#      run: make docker-build
+#    - name: Run tests
+#      run: make docker-runtest-all
+#    - name: pylinter
+#      uses: alexanderdamiani/pylinter@v1.3.0
 name: Build
 on:
   push:
     branches:
-      - master
-  pull_request:
-    branches:
-      - master
-  workflow_dispatch:
+      - master # or the name of your main branch
 jobs:
   build:
+    name: Build
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - name: Build docker image
-      run: make docker-build
-    - name: Run tests
-      run: make docker-runtest-all
-    - name: pylinter
-      uses: alexanderdamiani/pylinter@v1.3.0
-#for sonar qube
-  #  - uses: actions/checkout@v2
-  #    with:
- #       fetch-depth: 0
- #   - uses: sonarsource/sonarqube-scan-action@master
- #     env:
- #       SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
- #       SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - uses: sonarsource/sonarqube-scan-action@master
+        env:
+          SONAR_TOKEN: ${{ a8d1dfd6c641aa890a3387830445bab7c1266179 }}
+          SONAR_HOST_URL: ${{ http://localhost:9000 }}
       # If you wish to fail your job when the Quality Gate is red, uncomment the
       # following lines. This would typically be used to fail a deployment.
       # - uses: sonarsource/sonarqube-quality-gate-action@master
